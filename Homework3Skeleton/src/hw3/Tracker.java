@@ -11,6 +11,13 @@ package hw3;
  * unmodified form of the target picture.
  */
 public class Tracker {
+	
+	private int mixedI;
+	private int mixedJ;
+	private int correctI;
+	private int correctJ;
+	private int rotations;
+	private boolean isFlipped;
     /**
      * Constructs a Tracker for a tile which belongs at coordinates correct*
      * but begins the puzzle (in the scrambled state) at coordinates mixed*
@@ -27,6 +34,12 @@ public class Tracker {
      * @param isFlipped is whether the tile is currently top-face-down
      */
     public Tracker(int mixedI, int mixedJ, int correctI, int correctJ, int rotations, boolean isFlipped) {
+    	this.mixedI = mixedI;
+    	this.mixedJ = mixedJ;
+    	this.correctI = correctI;
+    	this.correctJ = correctJ;
+    	this.rotations = rotations;
+    	this.isFlipped = isFlipped;
     }
 
     /**
@@ -46,6 +59,7 @@ public class Tracker {
      * clockwise.
      */
     public void clockwise() {
+    	rotations++;
     }
 
     /**
@@ -53,6 +67,7 @@ public class Tracker {
      * anticlockwise.
      */
     public void anticlockwise() {
+    	rotations --;
     }
 
     /**
@@ -61,6 +76,7 @@ public class Tracker {
      * is correspondingly changed.
      */
     public void hflip() {
+    	isFlipped = !isFlipped;
     }
 
     /**
@@ -69,6 +85,9 @@ public class Tracker {
      * is correspondingly changed.
      */
     public void vflip() {
+    	this.clockwise();
+    	this.clockwise();
+    	this.hflip();
     }
 
     /**
@@ -77,6 +96,8 @@ public class Tracker {
      * is correspondingly changed.
      */
     public void transpose() {
+    	this.anticlockwise();
+    	this.vflip();
     }
     
     /**
@@ -86,6 +107,7 @@ public class Tracker {
      * @return the row number in scrambled puzzle.
      */
     public int getMixedI() {
+    	return mixedI;
     }
 
     /**
@@ -95,6 +117,7 @@ public class Tracker {
      * @return the column number in scrambled puzzle.
      */
     public int getMixedJ() {
+    	return mixedJ;
     }
 
     /**
@@ -104,6 +127,7 @@ public class Tracker {
      * @return the row number in solved puzzle.
      */
     public int getCorrectI() {
+    	return correctI;
     }
 
     /**
@@ -113,6 +137,7 @@ public class Tracker {
      * @return the column number in solved puzzle.
      */
     public int getCorrectJ() {
+    	return correctJ;
     }
 
     /**
@@ -123,6 +148,7 @@ public class Tracker {
      * @return the number of rotations
      */
     public int getRotations() {
+    	return rotations;
     }
 
     /**
@@ -132,6 +158,7 @@ public class Tracker {
      * @return true if the tile must be turned upside down.
      */
     public boolean getIsFlipped() {
+    	return isFlipped;
     }
 
     /**
@@ -148,5 +175,6 @@ public class Tracker {
      * @return the string representation of the tracker.
      */
     public String toString() {
+    	return ("" + mixedI + " " + mixedJ + " " + correctI + " " + correctJ + " " + rotations + " " + isFlipped);
     }
 }

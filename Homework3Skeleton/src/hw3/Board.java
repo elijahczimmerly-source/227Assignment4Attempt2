@@ -4,6 +4,7 @@
  */
 
 package hw3;
+import java.util.ArrayList;
 
 /**
  * Implements a Board as described in the overview.  A Board represents the
@@ -12,6 +13,13 @@ package hw3;
  * its starting scrambled coordinates and ending solved coordinates.
  */
 public class Board {
+    Tracker[][] board;
+    int cursorI;
+    int cursorJ;
+    ArrayList<String> userMoves;
+	
+    
+    
     /**
      * Constructs a 2D (array) board of size numRows by numCols, containing a
      * Tracker in position (i, j) for each tile that is currently in position
@@ -31,6 +39,10 @@ public class Board {
      * @param numCols is the number of tiles horizontally
      */
     public Board(int numRows, int numCols) {
+    	board = new Tracker[numRows][numCols];
+    	cursorI = 0;
+    	cursorJ = 0;
+    	userMoves = new ArrayList<>();
     }
 
     /**
@@ -47,6 +59,21 @@ public class Board {
      * @return true if the Board is solved, and false otherwise.
      */
     public boolean isSolved() {
+    	int numC0 = 0;
+    	int numC0F = 0;
+    	int numCorrectPos = 0;
+    	int numMirrorPos = 0;
+    	
+    	for (int i = 0; i < board.length; i++) {
+    		for (int j = 0; j < board.length; j++) {
+    			if (board[i][j].getCorrectI() == i && board[i][j].getCorrectJ() == j && ) {
+					
+				}
+    			else if (){
+    		
+    			}
+    		}
+    	}
     }
 
     /**
@@ -58,6 +85,7 @@ public class Board {
      * @param t the Tracker that should be stored
      */
     public void setTracker(int i, int j, Tracker t) {
+    	board[i][j] = t;
     }
 
     /**
@@ -69,6 +97,7 @@ public class Board {
      * @return the tracker at i, and j.
      */
     public Tracker getTracker(int i, int j) {
+    	return board[i][j];
     }
 
     /**
@@ -78,6 +107,7 @@ public class Board {
      * @return the number of rows.
      */
     public int getNumRows() {
+    	return board.length;
     }
 
     /**
@@ -87,6 +117,7 @@ public class Board {
      * @return the number of columns.
      */
     public int getNumCols() {
+    	return board[0].length;
     }
 
     /**
@@ -97,6 +128,7 @@ public class Board {
      * @return the row index of the cursor.
      */
     public int getCursorI() {
+    	return cursorI;
     }
 
     /**
@@ -107,6 +139,7 @@ public class Board {
      * @return the column index of the cursor.
      */
     public int getCursorJ() {
+    	return cursorJ;
     }
     
     /**
@@ -116,6 +149,10 @@ public class Board {
      * moves so that it can be undone later if desired.
      */
     public void moveRight() {
+    	if (cursorJ < board[0].length - 1) {
+    		cursorJ++;
+    		userMoves.add("moveRight");
+    	}
     }
     
     /**
@@ -125,6 +162,10 @@ public class Board {
      * moves so that it can be undone later if desired.
      */
     public void moveLeft() {
+    	if (cursorJ < 0) {
+    		cursorJ --;
+    		userMoves.add("moveLeft");
+    	}
     }
     
     /**
@@ -134,6 +175,10 @@ public class Board {
      * that it can be undone later if desired.
      */
     public void moveDown() {
+    	if (cursorI < board[0].length - 1) {
+    		cursorI++;
+    		userMoves.add("moveDown");
+    	}
     }
     
     /**
@@ -143,6 +188,10 @@ public class Board {
      * moves so that it can be undone later if desired.
      */
     public void moveUp() {
+    	if (cursorI < 0) {
+    		cursorI --;
+    		userMoves.add("moveUp");
+    	}
     }
 
     /**
@@ -154,6 +203,12 @@ public class Board {
      * that it can be undone later if desired.
      */
     public void swapRight() {
+    	if (cursorJ  < board[0].length - 1) {
+    		Tracker temp = board[cursorI][cursorJ];
+        	board[cursorI][cursorJ] = board[cursorI][cursorJ + 1];
+        	board[cursorI][cursorJ + 1] = temp;
+        	userMoves.add("swapRight");
+    	}
     }
 
     /**
@@ -165,6 +220,12 @@ public class Board {
      * that it can be undone later if desired.
      */
     public void swapLeft() {
+    	if (cursorJ  > 0) {
+    		Tracker temp = board[cursorI][cursorJ];
+        	board[cursorI][cursorJ] = board[cursorI][cursorJ - 1];
+        	board[cursorI][cursorJ - 1] = temp;
+        	userMoves.add("swapLeft");
+    	}
     }
 
     /**
@@ -176,6 +237,12 @@ public class Board {
      * that it can be undone later if desired.
      */
     public void swapDown() {
+    	if (cursorI  < board.length - 1) {
+    		Tracker temp = board[cursorI][cursorJ];
+        	board[cursorI][cursorJ] = board[cursorI + 1][cursorJ];
+        	board[cursorI + 1][cursorJ] = temp;
+        	userMoves.add("swapDown");
+    	}
     }
 
     /**
@@ -187,6 +254,12 @@ public class Board {
      * that it can be undone later if desired.
      */
     public void swapUp() {
+    	if (cursorI  > 0) {
+    		Tracker temp = board[cursorI][cursorJ];
+        	board[cursorI][cursorJ] = board[cursorI - 1][cursorJ];
+        	board[cursorI - 1][cursorJ] = temp;
+        	userMoves.add("swapUp");
+    	}
     }
 
     /**
@@ -195,6 +268,8 @@ public class Board {
      * on the list of user moves so that it can be undone later if desired.
      */
     public void clockwise() {
+    	board[cursorI][cursorJ].clockwise();
+    	userMoves.add("clockwise");
     }
 
     /**
@@ -204,6 +279,8 @@ public class Board {
      * desired.
      */
     public void anticlockwise() {
+    	board[cursorI][cursorJ].anticlockwise();
+    	userMoves.add("anticlockwise");
     }
 
     /**
@@ -213,6 +290,8 @@ public class Board {
      * desired.
      */
     public void hflip() {
+    	board[cursorI][cursorJ].hflip();
+    	userMoves.add("hflip");
     }
 
     /**
@@ -222,6 +301,8 @@ public class Board {
      * desired.
      */
     public void vflip() {
+    	board[cursorI][cursorJ].vflip();
+    	userMoves.add("vflip");
     }
 
     /**
@@ -231,6 +312,8 @@ public class Board {
      * desired.
      */
     public void transpose() {
+    	board[cursorI][cursorJ].transpose();
+    	userMoves.add("transpose");
     }
 
     /**
@@ -240,6 +323,26 @@ public class Board {
      * undo move itself should not be recorded on the list of user moves.
      */
     public void undo() {
+    	if (userMoves.size() >= 1) {
+    		String lastMove = userMoves.remove(userMoves.size() - 1);
+        	switch(lastMove) {
+        		case "" : break;
+        		case "moveRight" : moveLeft(); break;
+        		case "moveLeft" : moveRight(); break;
+        		case "moveDown" : moveUp(); break;
+        		case "moveUp" : moveDown(); break;
+        		case "swapRight" : swapLeft(); break;
+        		case "swapLeft" : swapRight(); break;
+        		case "swapDown" : swapUp(); break;
+        		case "swapUp" : swapDown(); break;
+        		case "clockwise" : anticlockwise(); break;
+        		case "anticlockwise" : clockwise(); break;
+        		case "hflip" : hflip(); break;
+        		case "vflip" : vflip(); break;
+        		case "transpose" : transpose(); break;
+        	}
+    	}
+    	
     }
 
     /**
