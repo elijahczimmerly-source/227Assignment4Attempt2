@@ -4,7 +4,9 @@
  */
 
 package hw3;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Implements a Board as described in the overview.  A Board represents the
@@ -59,21 +61,55 @@ public class Board {
      * @return true if the Board is solved, and false otherwise.
      */
     public boolean isSolved() {
-    	int numC0 = 0;
-    	int numC0F = 0;
     	int numCorrectPos = 0;
     	int numMirrorPos = 0;
+    	int numC0 = 0;
+    	int numC0F = 0;
+    	int boardHeight = board.length;
+    	int boardWidth = board[0].length;
     	
-    	for (int i = 0; i < board.length; i++) {
-    		for (int j = 0; j < board.length; j++) {
-    			if (board[i][j].getCorrectI() == i && board[i][j].getCorrectJ() == j && ) {
-					
-				}
-    			else if (){
+    	for (int i = 0; i < boardHeight; i++) {
     		
+    		for (int j = 0; j < boardWidth; j++) {
+    			
+    			
+    			Tracker t = board[i][j];
+    			
+    			if (t.getCorrectI() == i && t.getCorrectJ() == j) {
+    				numCorrectPos++;
+				}
+    			else if (t.getCorrectI() == boardHeight - i && t.getCorrectJ() == boardWidth - j) {
+					numMirrorPos++;
+				}
+    			else{
+    				return false;
     			}
+    			
+    			if(t.getRotations() % 4 == 0) {
+    				if (t.getIsFlipped()) {
+    					numC0F++;
+    				}
+    				else {
+    					numC0++;
+    				}
+    			}
+    			else {
+    				return false;
+    			}
+    			
+    			
     		}
     	}
+    	
+    	int numTiles = boardHeight * boardWidth;
+		if(numCorrectPos == numTiles && numC0 == numTiles){
+			return true;
+		}
+		else if(numMirrorPos == numTiles && numC0F == numTiles) {
+			return true;
+		}
+		return false;
+    	
     }
 
     /**
@@ -363,6 +399,19 @@ public class Board {
      * @return the string representation of the board
      */
     public String save() {
+    	String boardString = board.length + "\n" + board[0].length + "\n" + cursorI + "\n" + cursorJ + "\n"; 
+    	
+    	for (int i = 0; i < board.length; i++) {
+    		for (int j = 0; j < board[0].length; j++) {
+    			boardString += board[i][j] + "\n";
+    		}
+    	}
+    	
+    	for (int i = 0; i < userMoves.size(); i++) {
+    		boardString += userMoves.get(i) + "\n";
+    	}
+    			
+    	return boardString;
     }
 
     /**
@@ -373,5 +422,23 @@ public class Board {
      *                   object which should be constructed.
      */
     public void load(String fromString) {
+    	Scanner scnr = new Scanner(fromString);
+    	
+    	board = new Tracker[scnr.nextInt()][scnr.nextInt()];
+    	cursorI = scnr.nextInt();
+    	cursorJ  = scnr.nextInt();
+    	
+    	for (int i = 0; i < board.length; i++) {
+    		for (int j = 0; j < board[0].length; j++) {
+    			board[i][j] = new Tracker(scnr.nextLine());
+    		}
+    	}
+    	
+    	userMoves = new ArrayList<String>();
+    	while(scnr.hasNextLine()) {
+    		userMoves.add(scnr.nextLine());
+    	}
+    	
+    	scnr.close();
     }
 }

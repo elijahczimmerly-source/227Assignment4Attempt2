@@ -4,6 +4,7 @@
  */
 
 package hw3;
+import java.util.Scanner;
 
 /**
  * A Tracker stores information about a particular tile in the Picture,
@@ -52,6 +53,14 @@ public class Tracker {
      * @param fromString describes the internal state to be constructed
      */
     public Tracker(String fromString) {
+    	Scanner scnr = new Scanner(fromString);
+    	mixedI = scnr.nextInt();
+    	mixedJ = scnr.nextInt();
+    	correctI = scnr.nextInt();
+    	correctJ = scnr.nextInt();
+    	rotations = scnr.nextInt();
+    	isFlipped = scnr.nextBoolean();
+    	scnr.close();
     }
 
     /**
@@ -67,7 +76,7 @@ public class Tracker {
      * anticlockwise.
      */
     public void anticlockwise() {
-    	rotations --;
+    	rotations += 3;
     }
 
     /**

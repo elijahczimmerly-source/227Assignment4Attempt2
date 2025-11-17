@@ -60,6 +60,21 @@ public class Picture {
      * This is useful for testing only.
      */
     public String toString() {
+    	if(given.length > 12 || given[0].length > 12) {
+    		return ("Too big to print.\n");
+    	}
+    	
+    	
+    	String string = "";
+    	
+    	for (int i = 0; i < given.length; i++) {
+    		for (int j = 0; j < given[0].length; j++) {
+    			string += given[i][j];
+    		}
+    		string += "\n";
+    	}
+    	
+    	return string;
     }
 
     /**
