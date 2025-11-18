@@ -9,6 +9,8 @@ package hw3;
  * It provides functionality for performing "stationary" operations like
  * hflips, vflips, tranposes, clockwise and anticlockwise rotations, but it
  * does these on actual pixels of a real photograph.
+ * 
+ * @author Elijah Zimmerly
  */
 public class Picture {
     /**
@@ -18,7 +20,13 @@ public class Picture {
      */
     public static final int RED = 16711680; // 16711935 is magenta
     
+    /**
+     * The 2D array of pixel colors represented by ints
+     */
     private int[][] given;
+    /**
+     * The number of pixels on the side of a tile.
+     */
     private int tileSize;
 
     /**

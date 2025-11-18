@@ -1,8 +1,3 @@
-/**
- * @author
- * @version
- */
-
 package hw3;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -13,12 +8,26 @@ import java.util.Scanner;
  * current state of the puzzle, containing current tile positions, the cursor
  * position and list of moves the user has made.  For each tile, we also know
  * its starting scrambled coordinates and ending solved coordinates.
+ * 
+ * @author Elijah Zimmerly
  */
 public class Board {
-    Tracker[][] board;
-    int cursorI;
-    int cursorJ;
-    ArrayList<String> userMoves;
+    /**
+     * The 2D array of Tracker objects representing the board state.
+     */
+    private Tracker[][] board;
+    /**
+     * The current row of the cursor.
+     */
+    private int cursorI;
+    /**
+     * The current column of the cursor.
+     */
+    private int cursorJ;
+    /**
+     * The list of moves the user has made.
+     */
+    private ArrayList<String> userMoves;
 	
     
     

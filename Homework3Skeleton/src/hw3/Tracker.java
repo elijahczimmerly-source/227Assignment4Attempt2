@@ -1,8 +1,3 @@
-/**
- * @author
- * @version
- */
-
 package hw3;
 import java.util.Scanner;
 
@@ -10,14 +5,34 @@ import java.util.Scanner;
  * A Tracker stores information about a particular tile in the Picture,
  * including where it was when the puzzle began, and where it should be in the
  * unmodified form of the target picture.
+ * 
+ * @author Elijah Zimmerly
  */
 public class Tracker {
 	
+	/**
+	 * The row number at the start of the puzzle.
+	 */
 	private int mixedI;
+	/**
+	 * The column number at the start of the puzzle.
+	 */
 	private int mixedJ;
+	/**
+	 * The row number in the solved puzzle.
+	 */
 	private int correctI;
+	/**
+	 * The column number in the solved puzzle.
+	 */
 	private int correctJ;
+	/**
+	 * The number of clockwise rotations as of now.
+	 */
 	private int rotations;
+	/**
+	 * Whether the tile is currently top-face-down.
+	 */
 	private boolean isFlipped;
     /**
      * Constructs a Tracker for a tile which belongs at coordinates correct*
