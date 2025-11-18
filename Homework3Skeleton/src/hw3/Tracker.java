@@ -69,6 +69,9 @@ public class Tracker {
      */
     public void clockwise() {
     	rotations++;
+    	if (rotations % 4 == 0) {
+    		rotations = 0;
+    	}
     }
 
     /**
@@ -77,6 +80,9 @@ public class Tracker {
      */
     public void anticlockwise() {
     	rotations += 3;
+    	if (rotations >= 4) {
+    		rotations -= 4;
+    	}
     }
 
     /**
@@ -105,8 +111,8 @@ public class Tracker {
      * is correspondingly changed.
      */
     public void transpose() {
-    	this.anticlockwise();
-    	this.vflip();
+    		this.clockwise();
+    		this.hflip();
     }
     
     /**

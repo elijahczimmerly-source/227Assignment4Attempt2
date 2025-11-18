@@ -45,6 +45,12 @@ public class Board {
     	cursorI = 0;
     	cursorJ = 0;
     	userMoves = new ArrayList<>();
+    	
+    	for(int i = 0; i < numRows; i++) {
+    		for (int j = 0; j < numCols; j++) {
+    			board[i][j] = new Tracker(i, j, i, j, 0, false);
+    		}
+    	}
     }
 
     /**
@@ -61,6 +67,8 @@ public class Board {
      * @return true if the Board is solved, and false otherwise.
      */
     public boolean isSolved() {
+
+    	
     	int numCorrectPos = 0;
     	int numMirrorPos = 0;
     	int numC0 = 0;
@@ -85,7 +93,7 @@ public class Board {
     				return false;
     			}
     			
-    			if(t.getRotations() % 4 == 0) {
+    			if(t.getRotations() == 0) {
     				if (t.getIsFlipped()) {
     					numC0F++;
     				}
@@ -198,7 +206,7 @@ public class Board {
      * moves so that it can be undone later if desired.
      */
     public void moveLeft() {
-    	if (cursorJ < 0) {
+    	if (cursorJ > 0) {
     		cursorJ --;
     		userMoves.add("moveLeft");
     	}
@@ -224,7 +232,7 @@ public class Board {
      * moves so that it can be undone later if desired.
      */
     public void moveUp() {
-    	if (cursorI < 0) {
+    	if (cursorI > 0) {
     		cursorI --;
     		userMoves.add("moveUp");
     	}
@@ -240,9 +248,13 @@ public class Board {
      */
     public void swapRight() {
     	if (cursorJ  < board[0].length - 1) {
+    		
     		Tracker temp = board[cursorI][cursorJ];
         	board[cursorI][cursorJ] = board[cursorI][cursorJ + 1];
         	board[cursorI][cursorJ + 1] = temp;
+        	
+        	cursorJ++;
+        	
         	userMoves.add("swapRight");
     	}
     }
@@ -257,9 +269,13 @@ public class Board {
      */
     public void swapLeft() {
     	if (cursorJ  > 0) {
+    		
     		Tracker temp = board[cursorI][cursorJ];
         	board[cursorI][cursorJ] = board[cursorI][cursorJ - 1];
         	board[cursorI][cursorJ - 1] = temp;
+        	
+        	cursorJ--;
+        	
         	userMoves.add("swapLeft");
     	}
     }
@@ -274,9 +290,13 @@ public class Board {
      */
     public void swapDown() {
     	if (cursorI  < board.length - 1) {
+    		
     		Tracker temp = board[cursorI][cursorJ];
         	board[cursorI][cursorJ] = board[cursorI + 1][cursorJ];
         	board[cursorI + 1][cursorJ] = temp;
+        	
+        	cursorI++;
+        	
         	userMoves.add("swapDown");
     	}
     }
@@ -291,9 +311,13 @@ public class Board {
      */
     public void swapUp() {
     	if (cursorI  > 0) {
+    		
     		Tracker temp = board[cursorI][cursorJ];
         	board[cursorI][cursorJ] = board[cursorI - 1][cursorJ];
         	board[cursorI - 1][cursorJ] = temp;
+        	
+        	cursorI--;
+        	
         	userMoves.add("swapUp");
     	}
     }

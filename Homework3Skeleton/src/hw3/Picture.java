@@ -188,8 +188,8 @@ public class Picture {
     	
     	for (int i = 0; i < this.getHeight() / 2; i++) {
     		for (int j = 0; j < this.getWidth(); j++) {
-    			flipped[i][j] = given[this.getHeight() - i][j];
-    			flipped[this.getHeight() - i][j] = given[i][j];
+    			flipped[i][j] = given[this.getHeight() - 1 - i][j];
+    			flipped[this.getHeight() - 1- i][j] = given[i][j];
     		}
     	}
     	return new Picture(flipped, tileSize);
@@ -333,9 +333,9 @@ public class Picture {
     	
     	int borderWidth = tileSize / 50 + 1;
     	
-    	for (int i = 0; i < this.getHeight(); i++) {
-    		for (int j = 0; j < this.getWidth(); j++) {
-    			if (i <= borderWidth || i >= this.getHeight() - borderWidth || j <= borderWidth || j >= this.getWidth() - borderWidth) {
+    	for (int i = tileI; i < tileI + tileSize; i++) {
+    		for (int j = tileJ; j < tileJ + tileSize; j++) {
+    			if (i <= tileI + borderWidth || i >= tileI + tileSize - borderWidth || j <= tileJ + borderWidth || j >= tileJ + tileSize - borderWidth) {
     				withCursor[i][j] = RED;
     			}
     			else {
