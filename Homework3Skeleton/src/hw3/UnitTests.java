@@ -48,7 +48,7 @@ public class UnitTests {
         int width = p.getWidth();
         int height = p.getHeight();
 
-        if (false) { // change to true to turn on the print statements, but
+        if (true) { // change to true to turn on the print statements, but
                      // normally we should not print stuff out unless there
                      // has been a failure.
             System.out.println("After: " + operation);
@@ -152,7 +152,9 @@ public class UnitTests {
     public void test10() {
         Picture p = makePicture(8, 4, 0);
         Picture q = p.getTile(1,1);
+    System.out.println(p);
 	p.setTile(0, 0, q);
+	System.out.println(p);
 	Picture r = p.getTile(0,0);
 	checkPictureState(r, 36, 39, 63, 60, "s8 t4 get tile 1, 1 set tile 0, 0");
     }

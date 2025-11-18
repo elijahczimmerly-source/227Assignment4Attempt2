@@ -69,6 +69,9 @@ public class Picture {
     	
     	for (int i = 0; i < given.length; i++) {
     		for (int j = 0; j < given[0].length; j++) {
+    			if (given[i][j] <= 9) {
+    				string += " ";
+    			}
     			string += given[i][j];
     		}
     		string += "\n";
@@ -166,8 +169,8 @@ public class Picture {
     	
     	for (int i = 0; i < this.getHeight(); i++) {
     		for (int j = 0; j < this.getWidth() / 2; j++) {
-    			flipped[i][j] = given[i][this.getWidth() - j];
-    			flipped[i][this.getWidth() - j] = given[i][j];
+    			flipped[i][j] = given[i][this.getWidth() - j - 1];
+    			flipped[i][this.getWidth() - j - 1] = given[i][j];
     		}
     	}
     	return new Picture(flipped, tileSize);
@@ -258,6 +261,9 @@ public class Picture {
     public Picture getTile(int tileI, int tileJ) {
     	int[][] tile = new int[tileSize][tileSize];
     	
+    	tileI *= tileSize;
+    	tileJ *= tileSize;
+    	
     	for (int i = 0; i < tileSize; i++) {
     		for (int j = 0; j < tileSize; j++) {
         		tile[i][j] = given[i + tileI][j + tileJ];
@@ -284,6 +290,10 @@ public class Picture {
      * @param picTile is the Picture that should be copied into place
      */
     public void setTile(int tileI, int tileJ, Picture picTile) {
+    	
+    	tileI *= tileSize;
+    	tileJ *= tileSize;
+    	
     	for (int i = 0; i < tileSize; i++) {
     		for (int j = 0; j < tileSize; j++) {
     			given[i + tileI][j + tileJ] = picTile.getPixel(i, j);
@@ -318,6 +328,9 @@ public class Picture {
     public int[][] drawCursor(int tileI, int tileJ) {
     	int[][] withCursor = new int[this.getHeight()][this.getWidth()];
     	
+    	tileI *= tileSize;
+    	tileJ *= tileSize;
+    	
     	int borderWidth = tileSize / 50 + 1;
     	
     	for (int i = 0; i < this.getHeight(); i++) {
@@ -330,6 +343,7 @@ public class Picture {
     			}
     		}
     	}
+    	
     	
     	return withCursor;
     	
